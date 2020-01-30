@@ -25,7 +25,8 @@ public class UserDaoImpl implements UserDao {
 	NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
 	@Autowired
-	public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate namedParameterJdbcTemplate) throws DataAccessException {
+	public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate namedParameterJdbcTemplate)
+			throws DataAccessException {
 		this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
 	}
 
@@ -41,7 +42,6 @@ public class UserDaoImpl implements UserDao {
 		try {
 			result = namedParameterJdbcTemplate.queryForObject(sql, params, new UserMapper());
 		} catch (EmptyResultDataAccessException e) {
-			e.printStackTrace();
 		}
 
 		return result;
@@ -62,13 +62,12 @@ public class UserDaoImpl implements UserDao {
 	public void save(User user) {
 
 		KeyHolder keyHolder = new GeneratedKeyHolder();
-		
-		String sql = "INSERT INTO USERS(NAME, AGE, NEPTUNKOD) "
-				+ "VALUES ( :name, :age, :neptunKod)";
+
+		String sql = "INSERT INTO USERS(NAME, AGE, NEPTUNKOD) " + "VALUES ( :name, :age, :neptunKod)";
 
 		namedParameterJdbcTemplate.update(sql, getSqlParameterByModel(user), keyHolder);
 		user.setId(keyHolder.getKey().intValue());
-		
+
 	}
 
 	@Override
@@ -96,7 +95,6 @@ public class UserDaoImpl implements UserDao {
 		paramSource.addValue("age", user.getAge());
 		paramSource.addValue("neptunKod", user.getNeptunKod());
 
-
 		return paramSource;
 	}
 
@@ -114,21 +112,13 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public boolean existingNeptunKod(String neptunKod) {
-
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("neptunKod", neptunKod);
-
 		String sql = "SELECT * FROM users WHERE neptunKod=:neptunKod";
+		List<User> list = namedParameterJdbcTemplate.query(sql, params, new UserMapper());
+		System.out.println(list.size());
+		return list.size()>0;
 
-		boolean result = false;
-		try {
-			result = !namedParameterJdbcTemplate.queryForObject(sql, params, new UserMapper()).getNeptunKod().isEmpty();
-		} catch (EmptyResultDataAccessException e) {
-			e.printStackTrace();
-		}
-		return result;
-		
-		
 	}
 
 }
