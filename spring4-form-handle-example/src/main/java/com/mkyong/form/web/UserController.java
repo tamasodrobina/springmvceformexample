@@ -77,10 +77,9 @@ public class UserController {
 				redirectAttributes.addFlashAttribute("msg", "User updated successfully!");
 			}
 			userService.saveOrUpdate(user);
-			// POST/REDIRECT/GET
+
 			return "redirect:/users/" + user.getId();
-			// POST/FORWARD/GET
-			// return "user/list";
+
 
 		}
 

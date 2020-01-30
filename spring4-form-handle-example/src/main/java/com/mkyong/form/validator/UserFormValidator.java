@@ -36,6 +36,10 @@ public class UserFormValidator implements Validator {
 		if (!neptunKodValidator.valid(user.getNeptunKod())) {
 			errors.rejectValue("neptunKod", "Pattern.userForm.neptunKod");
 		}
+		
+		if (userService.existingNeptunKod(user.getNeptunKod())) {
+			errors.rejectValue("neptunKod", "Existing.userForm.neptunKod");
+		}
 
 	}
 

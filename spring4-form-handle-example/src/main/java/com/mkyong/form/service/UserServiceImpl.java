@@ -31,17 +31,21 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void saveOrUpdate(User user) {
 
-		if (findById(user.getId())==null) {
+		if (findById(user.getId()) == null) {
 			userDao.save(user);
 		} else {
 			userDao.update(user);
 		}
-
 	}
 
 	@Override
 	public void delete(int id) {
 		userDao.delete(id);
+	}
+
+	@Override
+	public boolean existingNeptunKod(String neptunKod) {
+		return userDao.existingNeptunKod(neptunKod);
 	}
 
 }

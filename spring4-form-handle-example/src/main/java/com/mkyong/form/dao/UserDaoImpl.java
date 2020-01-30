@@ -112,4 +112,23 @@ public class UserDaoImpl implements UserDao {
 		}
 	}
 
+	@Override
+	public boolean existingNeptunKod(String neptunKod) {
+
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("neptunKod", neptunKod);
+
+		String sql = "SELECT * FROM users WHERE neptunKod=:neptunKod";
+
+		boolean result = false;
+		try {
+			result = !namedParameterJdbcTemplate.queryForObject(sql, params, new UserMapper()).getNeptunKod().isEmpty();
+		} catch (EmptyResultDataAccessException e) {
+			e.printStackTrace();
+		}
+		return result;
+		
+		
+	}
+
 }

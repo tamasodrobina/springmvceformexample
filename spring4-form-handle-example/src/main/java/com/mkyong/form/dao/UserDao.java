@@ -15,5 +15,6 @@ public interface UserDao {
 	void update(User user);
 
 	void delete(Integer id);
-
+	
+	boolean existingNeptunKod(String neptunKod);
 }

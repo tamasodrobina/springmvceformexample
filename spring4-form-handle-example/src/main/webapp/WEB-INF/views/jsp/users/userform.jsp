@@ -49,7 +49,7 @@
 
 		<spring:bind path="neptunKod">
 			<div class="form-group ${status.error ? 'has-error' : ''}">
-				<label class="col-sm-2 control-label">Address</label>
+				<label class="col-sm-2 control-label">Neptun kod</label>
 				<div class="col-sm-10">
 					<form:textarea path="neptunKod" rows="5" class="form-control" id="neptunKod" placeholder="neptunKod" />
 					<form:errors path="neptunKod" class="control-label" />
