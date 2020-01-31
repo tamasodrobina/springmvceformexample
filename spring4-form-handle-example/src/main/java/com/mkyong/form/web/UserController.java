@@ -95,7 +95,6 @@ public class UserController {
 		user.setAge(24);
 		user.setNeptunKod("KM345T");
 		model.addAttribute("userForm", user);
-
 		return "users/userform";
 
 	}

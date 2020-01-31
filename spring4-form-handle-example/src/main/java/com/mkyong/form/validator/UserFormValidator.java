@@ -6,11 +6,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
-
 import com.mkyong.form.model.User;
 import com.mkyong.form.service.UserService;
 
-//http://docs.spring.io/spring/docs/current/spring-framework-reference/html/validation.html#validation-mvc-configuring
 @Component
 public class UserFormValidator implements Validator {
 
@@ -36,11 +34,13 @@ public class UserFormValidator implements Validator {
 		if (!neptunKodValidator.valid(user.getNeptunKod())) {
 			errors.rejectValue("neptunKod", "Pattern.userForm.neptunKod");
 		}
-		
-		if (userService.existingNeptunKod(user.getNeptunKod()))
-			if(userService.findById(user.getId())==null) {
-			errors.rejectValue("neptunKod", "Existing.userForm.neptunKod");
-		}
+		if (userService.existingNeptunKod(user.getNeptunKod()) != null)
+			if (userService.existingNeptunKod(user.getNeptunKod()).getId() != user.getId()) {
+				if (userService.existingNeptunKod(user.getNeptunKod()) != null) {
+					errors.rejectValue("neptunKod", "Existing.userForm.neptunKod");
+				}
+
+			}
 
 	}
 

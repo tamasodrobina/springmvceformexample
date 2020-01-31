@@ -14,6 +14,6 @@ public interface UserService {
 	
 	void delete(int id);
 	
-	boolean existingNeptunKod(String neptunKod);
+	User existingNeptunKod(String neptunKod);
 	
 }

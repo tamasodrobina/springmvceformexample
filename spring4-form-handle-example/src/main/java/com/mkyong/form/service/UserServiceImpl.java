@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean existingNeptunKod(String neptunKod) {
+	public User existingNeptunKod(String neptunKod) {
 		return userDao.existingNeptunKod(neptunKod);
 	}
 
